@@ -56,7 +56,7 @@ def upload_to_elog(routine, data, widget=None):
     fileName = fileName.rstrip('.xml')
     screenshot(widget, f'{fileName}.png')
 
-    array = [fileName]
+    array = [f'{fileName}.png']
 
     print(routine['name'])
     print(hashmap)
