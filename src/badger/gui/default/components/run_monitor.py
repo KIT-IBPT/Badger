@@ -10,6 +10,7 @@ from .routine_runner import BadgerRoutineRunner
 from ..windows.terminition_condition_dialog import BadgerTerminationConditionDialog
 # from ...utils import AURORA_PALETTE, FROST_PALETTE
 from ....utils import norm, ParetoFront
+from ....upload_to_logbook import upload_to_elog, BADGER_LOGBOOK_ROOT
 from ....logbook import send_to_logbook, BADGER_LOGBOOK_ROOT
 from ....archive import archive_run, BADGER_ARCHIVE_ROOT
 
@@ -727,6 +728,7 @@ class BadgerOptMonitor(QWidget):
                 routine = self.routine
                 data = self.data
             send_to_logbook(routine, data, self.monitor)
+            upload_to_elog(routine, data, self.monitor)
         except Exception as e:
             QMessageBox.critical(self, 'Log failed!', str(e))
 
