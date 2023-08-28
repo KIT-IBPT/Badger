@@ -32,17 +32,18 @@ def upload_to_elog(routine, data, widget=None):
     obj_start = data[obj_name][0]
     obj_end = data[obj_name][-1]
 
+    # Puts relevant routine information into dictionary 
     hashmap = {}
-    hashmap["Fill Number"] = 1
-    # get_pv("A:SR:OperationStatus:01:FillNumber")
+    hashmap["Fill Number"] = get_pv("A:SR:OperationStatus:01:FillNumber")
     hashmap["Environment"] = routine['env']
     hashmap["Start Time"] = data['timestamp_raw'][0]
     hashmap["End Time"] = data['timestamp_raw'][-1]
-    hashmap["Actuators"] = routine['config']['variables']
-    hashmap["Objective"] = routine['config']['objectives']
+    hashmap["Actuators"] = str(routine['config']['variables'])
+    hashmap["Objective"] = str(routine['config']['objectives'])
     hashmap["Optimizer"] = routine['algo']
 
 
+    # Generates screenshot from xml data
     curr_time = datetime.now()
     if os.name == 'nt':
         timestr = curr_time.strftime('%Y-%m-%dT%H%M%S')
@@ -56,10 +57,10 @@ def upload_to_elog(routine, data, widget=None):
     fileName = fileName.rstrip('.xml')
     screenshot(widget, f'{fileName}.png')
 
-    array = [f'{fileName}.png']
+    array = [f'{fileName}.png', f'{fileName}.xml']
 
-    print(routine['name'])
-    print(hashmap)
-    print(array)
-
-    logbook.post(routine['name'], attributes = hashmap, attachments = array)
+    logbook.post(
+        f"Automatic Badger optimization: {routine['name']}", 
+        attributes = hashmap, 
+        attachments = array
+    )
