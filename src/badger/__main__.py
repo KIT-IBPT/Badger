@@ -1,5 +1,7 @@
 import argparse
 
+import pandas  # noqa: F401
+
 from .log import config_log
 config_log()  # has to happen here to make sure the config taking effect
 from .settings import init_settings
