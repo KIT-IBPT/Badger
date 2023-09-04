@@ -21,7 +21,7 @@ from PyQt5.QtWidgets import (
 
 from ....archive import BADGER_ARCHIVE_ROOT, archive_run
 from ....logbook import BADGER_LOGBOOK_ROOT, send_to_logbook
-from ....upload_to_logbook import BADGER_LOGBOOK_ROOT, upload_to_elog
+from ....upload_to_logbook import upload_to_elog
 
 # from ...utils import AURORA_PALETTE, FROST_PALETTE
 from ....utils import ParetoFront, norm
